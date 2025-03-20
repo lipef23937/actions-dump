@@ -26,7 +26,26 @@ jobs:
           path: |
             **/node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}-${{ steps.node.outputs.version }}
+  name: "Firmware Dump by DumprX"
+  only_if: $CIRRUS_REPO_OWNER == 'DumprX'
 
+  container:
+      image: ghcr.io/sushrut1101/docker:arch
+      cpu: 4
+      memory: 16G
+
+  Clone_script:
+      - git clone --depth=1 --single-branch https://github.com/DumprX/DumprX.git
+
+  Setup_script:
+      - git config --global user.name "Sushrut1101"
+      - git config --global user.email "guptasushrut@gmail.com"
+      - cd DumprX
+      - sudo bash setup.sh
+
+  DumprX_script:
+      - cd DumprX || echo "Already in the Directory"
+      - ./dumper.sh $(< ${CIRRUS_WORKING_DIR}/ROM_URL.txt)
       - run: yarn install
 
       ### - run: yarn test
