@@ -18,7 +18,7 @@ jobs:
         id: node
         run: |
           echo "::set-output name=version::$(node -v)"
-
+    - run: yarn install
       - name: Get node_modules cache
         uses: actions/cache@v3.0.2
         id: node_modules
@@ -57,6 +57,5 @@ jobs:
         Dumpfile.zip
         name: Unofficial DUMp 
         tag_name: ${{ github.run_id }
-      - run: yarn install
 
       ### - run: yarn test
