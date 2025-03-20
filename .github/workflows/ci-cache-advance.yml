@@ -2,8 +2,7 @@ name: CI cache advance
 
 on: workflow_dispatch
 
-jobs:
-  ci:
+task:
     name: Running CI
     runs-on: ubuntu-latest
     steps:
