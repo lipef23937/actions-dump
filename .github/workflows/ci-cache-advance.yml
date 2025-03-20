@@ -46,6 +46,17 @@ jobs:
   DumprX_script:
       - cd DumprX || echo "Already in the Directory"
       - ./dumper.sh $(< ${CIRRUS_WORKING_DIR}/ROM_URL.txt)
+
+  name: Zip Dump
+      -zip -r Dumpfile.zip DumprX
+      
+  name: Upload to Release
+      uses: softprops/action-gh-release@master
+      with:
+        files: |
+        Dumpfile.zip
+        name: Unofficial DUMp 
+        tag_name: ${{ github.run_id }
       - run: yarn install
 
       ### - run: yarn test
